@@ -3,9 +3,10 @@ const app =express();
 
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
+app.use('view engine','ejs');
 
 app.get("/", function(req, res){
-    res.send("Hello World");
+    res.redirect("index")
 });
 
 app.listen(3000, function(){
