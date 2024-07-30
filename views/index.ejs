@@ -8,29 +8,38 @@
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body>
-    <div class="main w-full min-h-screen bg-zinc-900">
-        <div class="form p-10 text-white">
+    <div class="main w-full min-h-screen bg-zinc-900 text-white">
+        <div class="form p-10">
             <form action="/create" method="post">
-                <input class="block uppercase w-full rounded-md outline-none px-5 py-2 bg-zinc-800 mb-2" type="text" placeholder="title" name="title">
-                <textarea class="block w-full uppercase rounded-md outline-none px-5 py-2 resize-none bg-zinc-800" placeholder="Write your text detail" name="details"></textarea>
-                <input class="button mt-2 bg-blue-600 px-5 py-2 rounded-md" type="submit" value="Create task">
+                <input class="block uppercase w-full rounded-md outline-none px-5 py-2 bg-zinc-800 mb-2" type="text" placeholder="Title" name="title" required>
+                <textarea class="block w-full uppercase rounded-md outline-none px-5 py-2 resize-none bg-zinc-800 mb-2" placeholder="Write your text detail" name="details" required></textarea>
+                <input class="button mt-2 bg-blue-600 px-5 py-2 rounded-md" type="submit" value="Create Task">
             </form>
-
         </div>
-        <div class="task p-10 flex gap-4 flex-wrap">
-            <% if(files.length>0){ %>
-                <% files.forEach (function(val){ %> 
-                    <div class="task min-w-72 px-3 py-4 rounded-md bg-zinc-800">
+
+        <div class="tasks p-10 flex flex-wrap gap-4">
+            <% if(files.length > 0) { %>
+                <% files.forEach(function(val) { %>
+                    <div class="task min-w-72 px-3 py-4 rounded-md bg-zinc-800 relative">
                         <h1 class="text-white text-3xl tracking-tighter"><%= val %></h1>
                         <div class="flex w-full items-center justify-between mt-5">
-                            <a class="text-blue-300 inline-block" href="/file/<%= val %>">Read more</a>
-                            <a class="text-zinc-600" href="/edit/<%= val%>">edit filename</a>
+                            <a class="text-blue-300" href="/file/<%= val %>">Read more</a>
+                            <a class="text-yellow-400" href="/edit/<%= val %>">Edit</a>
+                            <form action="/delete/<%= val %>" method="post" class="inline-block">
+                                <button class="text-red-600" type="submit">Delete</button>
+                            </form>
+                            <form action="/complete/<%= val %>" method="post" class="inline-block">
+                                <button class="text-green-600" type="submit">Complete</button>
+                            </form>
                         </div>
+                        <% if (completedTasks.includes(val)) { %>
+                            <span class="absolute top-0 right-0 bg-green-500 text-white text-xs px-2 py-1 rounded-bl-md">Completed</span>
+                        <% } %>
                     </div>
-                    <% }) %>
-                <% } else { %>
-                    <h3 class="text-zinc-600 uppercase ">No task yet</h3>
-                <% } %>
+                <% }) %>
+            <% } else { %>
+                <h3 class="text-zinc-600 uppercase w-full text-center">No tasks yet</h3>
+            <% } %>
         </div>
     </div>
 </body>

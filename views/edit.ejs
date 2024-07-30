@@ -3,18 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Edit Task</title>
     <link rel="stylesheet" href="/views/style.css">
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body>
-    <div class="main w-full min-h-screen bg-zinc-900 text-white">
-        <a class="text-blue-300 inline-block mb-10 m-5" href="/">< Go back to home </a>
-        <form action="/edit" method="post">
-            <textarea class="block w-1/4 uppercase rounded-md text-zinc-700 outline-none px-5 py-2 mb-3 resize-none bg-zinc-800" placeholder="Previous name" name="previous"><%= filename %></textarea>
-            <textarea class="block w-1/4 uppercase rounded-md outline-none px-5 py-2 resize-none bg-zinc-800" placeholder="New Name" name="new"></textarea>
-            <input class="button mt-2 bg-yellow-600 px-5 py-2 rounded-md" type="submit" value="Update Name">
-        </form>
+    <div class="main w-full min-h-screen bg-zinc-900 text-white flex items-center justify-center">
+        <div class="container max-w-md w-full bg-zinc-800 p-8 rounded-lg shadow-lg">
+            <a class="text-blue-300 inline-block mb-10" href="/">< Go back to home </a>
+            <h2 class="text-2xl mb-6">Edit Task</h2>
+            <form action="/edit/<%= filename %>" method="post">
+                <label for="previous" class="block mb-2">Previous Name</label>
+                <input id="previous" type="text" class="block w-full uppercase rounded-md text-zinc-300 outline-none px-5 py-2 mb-3 bg-zinc-700 cursor-not-allowed" placeholder="Previous name" name="previous" value="<%= filename %>" disabled>
+                
+                <label for="newFilename" class="block mb-2">New Name</label>
+                <input id="newFilename" type="text" class="block w-full uppercase rounded-md outline-none px-5 py-2 mb-3 bg-zinc-700" placeholder="New Name" name="newFilename" required>
+                
+                <input class="button w-full mt-2 bg-yellow-600 hover:bg-yellow-500 px-5 py-2 rounded-md cursor-pointer transition duration-200" type="submit" value="Update Name">
+            </form>
+        </div>
     </div>
 </body>
 </html>
